@@ -29,19 +29,17 @@ app.use(function *(next) {
     try {
         hmac.update(JSON.stringify(payload));
     } catch (e) {
-        console.error(e);
-        this.throw(400);
+        this.throw(400, 'Unable to parse the request body');
     }
     const calculatedSignature = `sha1=${ hmac.digest('hex') }`;
-    console.log(calculatedSignature, ' ', this.get('x-hub-signature'));
-    this.assert(calculatedSignature === this.get('x-hub-signature'), 400);
+    this.assert(calculatedSignature === this.get('x-hub-signature'), 400, 'Signatures dows not match');
 
     const repo = _.get(this.request.body, 'repository.full_name');
     const ref = _.get(this.request.body, 'ref');
-    this.assert(repo && ref, 400);
+    this.assert(repo && ref, 400, 'Unable to get repository full name and branch name');
 
     const exe = _.get(config, [repo, ref]);
-    this.assert(exe && exe.file, 400);
+    this.assert(exe && exe.file, 500, 'Bad configuration file');
 
     yield exec(exe);
     this.status = 200;
