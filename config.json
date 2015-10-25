@@ -1,0 +1,9 @@
+{
+  "repo-full-name": {
+    "full-git-ref": {
+      "file": "script.sh",
+      "args": ["yolo"],
+      "options": {}
+    }
+  }
+}

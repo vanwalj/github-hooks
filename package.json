@@ -1,0 +1,29 @@
+{
+  "name": "github-hooks",
+  "version": "1.0.0",
+  "description": "Github hooks",
+  "main": "index.js",
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanwalj/github-hooks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vanwalj/github-hooks/issues"
+  },
+  "homepage": "https://github.com/vanwalj/github-hooks#readme",
+  "dependencies": {
+    "co": "^4.6.0",
+    "koa": "^1.1.1",
+    "koa-body": "^1.3.0",
+    "lodash": "^3.10.1"
+  }
+}
