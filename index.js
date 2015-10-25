@@ -27,7 +27,11 @@ function exec (exe) {
 
 app.use(function *(next) {
     const payload = this.request.body;
-    hmac.update(JSON.stringify(payload));
+    try {
+        hmac.update(JSON.stringify(payload));
+    } catch (e) {
+        this.throw(400);
+    }
     const calculatedSignature = `sha1=${ hmac.digest('hex') }`;
     this.assert(calculatedSignature === this.get('x-hub-signature'), 400);
 
@@ -43,4 +47,6 @@ app.use(function *(next) {
     yield next;
 });
 
-app.listen(process.env.PORT);
+app.listen(process.env.PORT, function () {
+    console.log('listening on', process.env.PORT);
+});
