@@ -39,7 +39,7 @@ app.use(function *(next) {
     this.assert(repo && ref, 400, 'Unable to get repository full name and branch name');
 
     const exe = _.get(config, [repo, ref]);
-    this.assert(exe && exe.file, 500, 'Bad configuration file');
+    this.assert(exe && exe.file, 400, 'Unable to find a configuration for', repo, ref);
 
     yield exec(exe);
     this.status = 200;
