@@ -33,6 +33,7 @@ app.use(function *(next) {
         this.throw(400);
     }
     const calculatedSignature = `sha1=${ hmac.digest('hex') }`;
+    console.log(calculatedSignature, ' ', this.get('x-hub-signature'));
     this.assert(calculatedSignature === this.get('x-hub-signature'), 400);
 
     const repo = _.get(this.request.body, 'repository.full_name');
