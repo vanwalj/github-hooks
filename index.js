@@ -30,6 +30,7 @@ app.use(function *(next) {
     try {
         hmac.update(JSON.stringify(payload));
     } catch (e) {
+        console.error(e);
         this.throw(400);
     }
     const calculatedSignature = `sha1=${ hmac.digest('hex') }`;
