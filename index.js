@@ -9,8 +9,6 @@ const koaBody = require('koa-body');
 const app = new Koa();
 const config = require('./config');
 
-const hmac = crypto.createHmac('sha1', process.env.GITHUB_SECRET);
-const calculatedSignature = 'sha1=' + hmac.digest('hex');
 
 app.use(koaBody());
 
@@ -27,6 +25,7 @@ function exec (exe) {
 
 app.use(function *(next) {
     const payload = this.request.body;
+    const hmac = crypto.createHmac('sha1', process.env.GITHUB_SECRET);
     try {
         hmac.update(JSON.stringify(payload));
     } catch (e) {
